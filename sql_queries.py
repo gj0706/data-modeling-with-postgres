@@ -35,9 +35,9 @@ song_table_create = ("""
      CREATE TABLE IF NOT EXISTS songs(
          song_id varchar NOT NULL PRIMARY KEY,
          title varchar NOT NULL,
-         artist_id int NOT NULL,
+         artist_id varchar NOT NULL,
          year int,
-         duration int
+         duration float
     );
 """)
 
@@ -53,7 +53,7 @@ artist_table_create = ("""
 
 time_table_create = ("""
      CREATE TABLE IF NOT EXISTS time (
-         start_time timestamp NOT NULL PRIMARY KEY,
+         start_time timestamp PRIMARY KEY,
          hour int,
          day int,
          week int,

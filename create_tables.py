@@ -57,7 +57,7 @@ def main():
     
     - Creates all tables needed. 
     
-    - Finally, closes the connection. 
+    - Finaly, closes the connection. 
     """
     cur, conn = create_database()
     
