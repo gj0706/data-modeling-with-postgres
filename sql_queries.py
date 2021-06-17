@@ -13,6 +13,7 @@ songplay_table_create = ("""
         songplay_id SERIAL PRIMARY KEY,
         start_time timestamp NOT NULL,
         user_id int,
+        level varchar,
         song_id varchar,
         artist_id varchar,
         session_id int,
@@ -34,8 +35,8 @@ user_table_create = ("""
 song_table_create = ("""
      CREATE TABLE IF NOT EXISTS songs(
          song_id varchar NOT NULL PRIMARY KEY,
-         title varchar NOT NULL,
-         artist_id varchar NOT NULL,
+         title varchar(255) NOT NULL,
+         artist_id varchar(255) NOT NULL,
          year int,
          duration float
     );
@@ -69,11 +70,12 @@ songplay_table_insert = ("""
     INSERT INTO songplays 
         (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
     VALUES
-        (%s, %s, %s, %s, %s, %s, %s, %s);    
+        (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT DO NOTHING; 
 """)
 
 user_table_insert = ("""
-    IINSERT INTO users 
+    INSERT INTO users 
         (user_id, first_name, last_name, gender, level)
     VALUES
         (%s, %s, %s, %s, %s) 
@@ -110,11 +112,8 @@ time_table_insert = ("""
 song_select = ("""
     SELECT s.song_id, a.artist_id
     FROM songs s
-    JOIN artists a 
-    ON  s.artist_id = a.artist_id
-    WHERE s.title = %s AND a.name = s% AND s.duration = s%;
-
-
+    JOIN artists a ON s.artist_id = a.artist_id
+    WHERE s.title = %s AND a.name = %s AND s.duration = %s;
 """)
 
 # QUERY LISTS
