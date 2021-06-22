@@ -44,5 +44,5 @@ This project performed data modeling with Postgres and built an ETL pipeline usi
 `etl.py` built the ETL pipeline
 
 # Acknolwledgements
-Star schema image comes from !(https://github.com/kenhanscombe/project-postgres)
+Star schema image comes from !(https://github.com/kenhanscombe/project-postgres/blob/master/sparkify_erd.png)
 Thanks Udacity for providing all the project resources. ❤
