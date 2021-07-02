@@ -6,11 +6,11 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
-    """[summary]
+    """Process song data and insert song data into the database
 
     Args:
-        cur ([type]): [description]
-        filepath ([type]): [description]
+        cur (object]): a cursor created from the cursor class 
+        filepath (string): file path of the song data
     """
     # open song file
     df = pd.read_json(filepath, lines=True)
@@ -26,6 +26,12 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """Process log data and insert log data into the database
+
+    Args:
+        cur (object): a cursor
+        filepath (string): file path of the log data
+    """
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -63,11 +69,19 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = (index, pd.to_datetime(row.ts, unit='ms'), row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent)
+        songplay_data = (pd.to_datetime(row.ts, unit='ms'), row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent)
         cur.execute(songplay_table_insert, songplay_data)
 
 
 def process_data(cur, conn, filepath, func):
+    """Process all the data in file
+
+    Args:
+        cur (object): a cursor
+        conn (object): a connection to the database
+        filepath (string): file paths to all data           
+        func (function): a function to process single data file
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
